@@ -1,181 +1,100 @@
-let nombreUsuario;
-let producto1 = "Pc Gamer";
-let producto2 = "Smart TV Led 4K Curva 80\"";
-let producto3 = "Lavarropas Samsung" ;
-let producto4 = "IPAD última generación";
-let precio1 = 120000;
-let precio2 = 950000;
-let precio3 = 45000;
-let precio4 = 100000;
+const USUADMIN = `Joni`;
+const PWADMIN = `123JGD`;
+let usuarioIngresado;
+let pwIngresada;
+let valorAdmin = false;
+let productos = [];
+let opcionElegida = "";
+let productosEliminados = [];
 
-do {
-    nombreUsuario = prompt("Ingrese su nombre por favor");
-} while (nombreUsuario.indexOf("")!=-1 && isNaN(nombreUsuario) === false );
-alert("Hola "+nombreUsuario);
-
-const Productos = () =>{
-    let seleccion;
-    while(seleccion!=1 && seleccion!=2 && seleccion!=3 && seleccion!=4){
-        seleccion = parseInt(prompt("Elegi un producto: \n1)"+producto1+" con un precio de $"+precio1+"\n2)"+producto2+" con un precio de $"+precio2+"\n3)"+producto3+" con un precio de $"+precio3+"\n4)"+producto4+" con un precio de $"+precio4+"\nPara seleccionar ingrese el numero."));
-        if(seleccion!=1 && seleccion!=2 && seleccion!=3 && seleccion!=4){
-            alert(nombreUsuario+" por favor ingresá un valor válido.");
-        }
-    }
-    return seleccion;
-} 
-function Pago(){
-    let formaPago;
-    while(formaPago!=1 && formaPago!=2 && formaPago!=3 && formaPago!=4){
-    formaPago = parseInt(prompt("De que forma desea pagar?\n1) Efectivo con 20% descuento\n2) Débito con 10% descuento\n3) 3 cuotas sin interés\n4) 6 cuotas con interés del 45%"));
-    if(formaPago!=1 && formaPago!=2 && formaPago!=3 && formaPago!=4){
-        alert(nombreUsuario+" por favor ingresá un valor válido.")
-    }
-    }
-    return formaPago;
+function agregarProducto(){
+    let productoIngresado = prompt(`Por favor ingrese un producto. Para finalizar ingrese "n"`);
+    if(productoIngresado.toLowerCase()!="n"){
+    productos.push(productoIngresado);
+    alert(`Usted agregó ${productoIngresado}`)
 }
-let productoSeleccionado = Productos();
-let numeroAleatorio = (Math.round(Math.random()*10));
-let seleccionPago = Pago();
-const CalculoPago = (producto) =>{
-    switch (producto) {
-        case 1:
-            switch (seleccionPago) {
-                case 1:
-                    alert(nombreUsuario+" deberás pagar $"+(precio1*0.8));
-                    break;
-                case 2:
-                    alert(nombreUsuario+" deberás pagar $"+(precio1*0.9));
-                    break;
-                case 3:
-                    alert(nombreUsuario+" deberás pagar 3 cuotas de: $"+(precio1/3));
-                    break;
-                case 4:
-                    alert(nombreUsuario+" deberás pagar 6 cuotas de: $"+(precio1*1.45)/6);
-                    break;
-            }
-            break;
-        case 2:
-            switch (seleccionPago) {
-                case 1:
-                    alert(nombreUsuario+" deberás pagar $"+(precio2*0.8));
-                    break;
-                case 2:
-                    alert(nombreUsuario+" deberás pagar $"+(precio2*0.9));
-                    break;
-                case 3:
-                    alert(nombreUsuario+" deberás pagar 3 cuotas de: $"+(precio2/3));
-                    break;
-                case 4:
-                    alert(nombreUsuario+" deberás pagar 6 cuotas de: $"+(precio2*1.45)/6);
-                    break;
-            }
-            break;
-            case 3:
-                switch (seleccionPago) {
-                    case 1:
-                        alert(nombreUsuario+" deberás pagar $"+(precio3*0.8));
-                        break;
-                    case 2:
-                        alert(nombreUsuario+" deberás pagar $"+(precio3*0.9));
-                        break;
-                    case 3:
-                        alert(nombreUsuario+" deberás pagar 3 cuotas de: $"+(precio3/3));
-                        break;
-                    case 4:
-                        alert(nombreUsuario+" deberás pagar 6 cuotas de: $"+(precio3*1.45)/6);
-                        break;
-                }
-                break;
-                case 4:
-                    switch (seleccionPago) {
-                        case 1:
-                            alert(nombreUsuario+" deberás pagar $"+(precio4*0.8));
-                            break;
-                        case 2:
-                            alert(nombreUsuario+" deberás pagar $"+(precio4*0.9));
-                            break;
-                        case 3:
-                            alert(nombreUsuario+" deberás pagar 3 cuotas de: $"+(precio4/3));
-                            break;
-                        case 4:
-                            alert(nombreUsuario+" deberás pagar 6 cuotas de: $"+(precio4*1.45)/6);
-                            break;
-                    }
-                    break;                
+    while(productoIngresado.toLowerCase()!="n"){
+    productoIngresado = prompt(`Por favor ingrese un producto. Para finalizar ingrese "n"`);
+    if(productoIngresado.toLowerCase()!="n"){
+        productos.push(productoIngresado);
+        alert(`Usted agregó ${productoIngresado}`) 
+    }
     }
 }
 
-const Sorteo = ()=>{
-    let adivinaste;
-    let numeroIngresado;
-    for(let i = 3; i >=1; i--){
-        numeroIngresado = parseInt(Math.round(prompt("Ingrese un numero del 0 al 10, capaz tenes suerte.\nTenés "+i+" intentos")));
-        console.log(numeroAleatorio);
-        if(numeroIngresado==numeroAleatorio){
-            adivinaste = true;
-            break;
-        }
-        else{
-            adivinaste = false;
-        }
-        if(numeroIngresado<0 || numeroIngresado>10 || isNaN(numeroIngresado)==true){
-            alert("Ingresa un valor valido. Perdiste un intento")
-        }
-    }
-
-    return adivinaste;
-}
-let participar;
 do{
-    participar = prompt("Queres participar por el producto seleccionado?\n S para continuar - N para finalizar").toLowerCase();
-    if (participar!="s" && participar!="n") {
-        alert(nombreUsuario+" por favor ingresá un valor válido.")
+    usuarioIngresado = prompt(`Ingrese su nombre de usuario\nPista: ${USUADMIN}`);
+}while(usuarioIngresado != USUADMIN);
+
+if(usuarioIngresado===USUADMIN){
+    valorAdmin = true;
+    console.log(valorAdmin);
+}
+
+function eliminarProducto() {
+
+    let opcionEliminar = prompt("Ingrese que desea realizar:\n1)Eliminar ultimo producto ingresado\n2)Eliminar todos los productos\n3)Para eliminar un producto específico");
+    switch (opcionEliminar) {
+        case "1":
+            let productoEliminado = productos.pop();
+            productosEliminados.push(productoEliminado);
+            break;
+        case "2":
+            let i = 0;
+            while (i < productos.length) {
+                productosEliminados.push(productos[i]);
+                i++;
+            }
+            productos.length = 0;
+        case "3":
+            alert(productos);
+            let productoElegido = prompt("Ingrese el producto a eliminar");
+            let indiceProducto =  productos.indexOf(productoElegido);
+            if(productos.indexOf(productoElegido)>-1){
+            productosEliminados.push(productoElegido);
+            productos.splice(indiceProducto,1);
+            alert(productos)}
+            else{
+                alert(`Ese producto no se encuentra`);
+            }
+            break;
+        default:
+            alert(`Ingrese una opción válida\n"1"  "2"  "3"`)
+            break;
     }
-}while(participar!="s" && participar!="n");
 
+}
 
-if(participar==="s"){
-    let adivinarSorteo = Sorteo();
-switch (productoSeleccionado) {
-    case 1:
-        if(adivinarSorteo==true){
-            alert("Felicidades te ganaste una "+producto1);
+function verLista(){
+    let opciones = prompt(`Seleccione que lista desea ver:\n1)Productos\n2)Productos Eliminados`)
+    switch (opciones) {
+        case "1":
+            console.log(productos);
             break;
-        }
-        else{
-            CalculoPago(productoSeleccionado);
+        case "2":
+            console.log(productosEliminados);
+        default:
             break;
-        }
-    case 2:
-        if(adivinarSorteo==true){
-            alert("Felicidades te ganaste una "+producto2);
-            break;
-        }
-        else{
-            CalculoPago(productoSeleccionado);
-            break;
-        }
-    case 3:
-        if(adivinarSorteo==true){
-            alert("Felicidades te ganaste una "+producto3);
-            break;
-        }
-        else{
-            CalculoPago(productoSeleccionado);
-            break;
-        }
-    case 4:
-        if(adivinarSorteo==true){
-            alert("Felicidades te ganaste una "+producto4);
-            break;
-        }
-        else{
-            CalculoPago(productoSeleccionado);
-            break;
-        }
+    }
 }
+while(opcionElegida.toLowerCase()!=`esc`){
+if(valorAdmin==true){
+    alert(`Bienvenido de nuevo "${USUADMIN}". Que deseas hacer hoy?`)
+    opcionElegida = prompt(`1)Cargar productos\n2)Modificar productos\n3)Eliminar productos\n4)Ver lista de productos\nPara finalizar escriba "ESC"`)
+    console.log(opcionElegida);
+    switch (opcionElegida) {
+        case "1":
+        agregarProducto();
+        console.log(productos);
+            break;
+        case "3":
+            eliminarProducto();
+            console.log(productos);
+            break;
+        case "4":
+        verLista();
+        default:
+            break;
+    }
 }
-else if(participar==="n"){
-    alert("Perdiste tu oportunidad de llevartelo gratis. Ahora vas a tener que pagar.")
-    CalculoPago(productoSeleccionado);
 }
