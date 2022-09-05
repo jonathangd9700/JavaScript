@@ -10,17 +10,26 @@ let precio4 = 100000;
 
 do {
     nombreUsuario = prompt("Ingrese su nombre por favor");
-} while (nombreUsuario === "" || isNaN(nombreUsuario) === false );
+} while (nombreUsuario.indexOf("")!=-1 && isNaN(nombreUsuario) === false );
 alert("Hola "+nombreUsuario);
 
 const Productos = () =>{
-    let seleccion = parseInt(prompt("Elegi un producto: \n1)"+producto1+" con un precio de $"+precio1+"\n2)"+producto2+" con un precio de $"+precio2+"\n3)"+producto3+" con un precio de $"+precio3+"\n4)"+producto4+" con un precio de $"+precio4));
+    let seleccion;
+    while(seleccion!=1 && seleccion!=2 && seleccion!=3 && seleccion!=4){
+        seleccion = parseInt(prompt("Elegi un producto: \n1)"+producto1+" con un precio de $"+precio1+"\n2)"+producto2+" con un precio de $"+precio2+"\n3)"+producto3+" con un precio de $"+precio3+"\n4)"+producto4+" con un precio de $"+precio4+"\nPara seleccionar ingrese el numero."));
+        if(seleccion!=1 && seleccion!=2 && seleccion!=3 && seleccion!=4){
+            alert(nombreUsuario+" por favor ingresá un valor válido.");
+        }
+    }
     return seleccion;
 } 
 function Pago(){
     let formaPago;
     while(formaPago!=1 && formaPago!=2 && formaPago!=3 && formaPago!=4){
     formaPago = parseInt(prompt("De que forma desea pagar?\n1) Efectivo con 20% descuento\n2) Débito con 10% descuento\n3) 3 cuotas sin interés\n4) 6 cuotas con interés del 45%"));
+    if(formaPago!=1 && formaPago!=2 && formaPago!=3 && formaPago!=4){
+        alert(nombreUsuario+" por favor ingresá un valor válido.")
+    }
     }
     return formaPago;
 }
@@ -109,6 +118,9 @@ const Sorteo = ()=>{
         else{
             adivinaste = false;
         }
+        if(numeroIngresado<0 || numeroIngresado>10 || isNaN(numeroIngresado)==true){
+            alert("Ingresa un valor valido. Perdiste un intento")
+        }
     }
 
     return adivinaste;
@@ -116,7 +128,11 @@ const Sorteo = ()=>{
 let participar;
 do{
     participar = prompt("Queres participar por el producto seleccionado?\n S para continuar - N para finalizar").toLowerCase();
+    if (participar!="s" && participar!="n") {
+        alert(nombreUsuario+" por favor ingresá un valor válido.")
+    }
 }while(participar!="s" && participar!="n");
+
 
 if(participar==="s"){
     let adivinarSorteo = Sorteo();
