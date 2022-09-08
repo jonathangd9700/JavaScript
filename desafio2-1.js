@@ -7,18 +7,45 @@ let productos = [];
 let opcionElegida = "";
 let productosEliminados = [];
 
-function agregarProducto(){
-    let productoIngresado = prompt(`Por favor ingrese un producto. Para finalizar ingrese "n"`);
-    if(productoIngresado.toLowerCase()!="n"){
-    productos.push(productoIngresado);
-    alert(`Usted agregó ${productoIngresado}`)
-}
-    while(productoIngresado.toLowerCase()!="n"){
-    productoIngresado = prompt(`Por favor ingrese un producto. Para finalizar ingrese "n"`);
-    if(productoIngresado.toLowerCase()!="n"){
-        productos.push(productoIngresado);
-        alert(`Usted agregó ${productoIngresado}`) 
+
+function agregarProductos(){
+    let cantidadProductos = parseInt(prompt(`Cuantos productos desea agregar?`));
+    while(isNaN(cantidadProductos)===true){
+        alert(`Ingrese un valor válido`);
+        cantidadProductos = parseInt(prompt(`Cuantos productos desea agregar?`));
     }
+    for(let i = 0; i<cantidadProductos;i++){
+let nombreProducto = prompt(`Ingrese el nombre del producto`);
+while(isNaN(nombreProducto)===false){
+    alert(`Ingrese un valor valido`);
+    nombreProducto = prompt(`Ingrese el nombre del producto`);
+}
+let precioProducto = parseFloat(prompt(`Ingrese el precio del producto`));
+while(isNaN(precioProducto)===true){
+    alert(`Ingrese un valor valido`);
+    precioProducto = parseFloat(prompt(`Ingrese el precio del producto`));
+}
+let stockProducto = parseInt(prompt(`Ingrese el stock del producto`));
+while(isNaN(stockProducto)===true){
+    alert(`Ingrese un valor valido`);
+    stockProducto = parseInt(prompt(`Ingrese el stock del producto`));
+}
+const ENCONTRADO = productos.find(el => {
+    return el.nombre === nombreProducto;
+})
+if(ENCONTRADO === undefined){
+productos.push({nombre:nombreProducto.toLowerCase(),precio:precioProducto,stock:stockProducto});
+}
+else{
+    alert(`Este producto ya se encuentra cargado`);
+}
+}
+console.log(productos);
+}
+
+function imprimirProductos(){
+    for(let i = 0; i<productos.length;i++){
+        console.log(productos[i].nombre);
     }
 }
 
@@ -47,13 +74,14 @@ function eliminarProducto() {
             }
             productos.length = 0;
         case "3":
-            alert(productos);
             let productoElegido = prompt("Ingrese el producto a eliminar");
-            let indiceProducto =  productos.indexOf(productoElegido);
+            let indiceProducto =  productos.map(elemento => elemento.nombre).indexOf(productoElegido);
+            console.log(indiceProducto);
             if(productos.indexOf(productoElegido)>-1){
             productosEliminados.push(productoElegido);
             productos.splice(indiceProducto,1);
-            alert(productos)}
+            imprimirProductos();
+        }
             else{
                 alert(`Ese producto no se encuentra`);
             }
@@ -69,7 +97,7 @@ function verLista(){
     let opciones = prompt(`Seleccione que lista desea ver:\n1)Productos\n2)Productos Eliminados`)
     switch (opciones) {
         case "1":
-            console.log(productos);
+            imprimirProductos();
             break;
         case "2":
             console.log(productosEliminados);
@@ -77,6 +105,8 @@ function verLista(){
             break;
     }
 }
+//-----------------------------------------------------------------------------------------------------------------------
+//INTERACCION CON USUARIO
 while(opcionElegida.toLowerCase()!=`esc`){
 if(valorAdmin==true){
     alert(`Bienvenido de nuevo "${USUADMIN}". Que deseas hacer hoy?`)
@@ -84,8 +114,7 @@ if(valorAdmin==true){
     console.log(opcionElegida);
     switch (opcionElegida) {
         case "1":
-        agregarProducto();
-        console.log(productos);
+            agregarProductos();
             break;
         case "3":
             eliminarProducto();
