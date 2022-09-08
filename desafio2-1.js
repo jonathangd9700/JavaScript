@@ -15,10 +15,10 @@ function agregarProductos(){
         cantidadProductos = parseInt(prompt(`Cuantos productos desea agregar?`));
     }
     for(let i = 0; i<cantidadProductos;i++){
-let nombreProducto = prompt(`Ingrese el nombre del producto`);
+let nombreProducto = prompt(`Ingrese el nombre del producto`).toLowerCase();
 while(isNaN(nombreProducto)===false){
     alert(`Ingrese un valor valido`);
-    nombreProducto = prompt(`Ingrese el nombre del producto`);
+    nombreProducto = prompt(`Ingrese el nombre del producto`).toLowerCase();
 }
 let precioProducto = parseFloat(prompt(`Ingrese el precio del producto`));
 while(isNaN(precioProducto)===true){
@@ -33,8 +33,9 @@ while(isNaN(stockProducto)===true){
 const ENCONTRADO = productos.find(el => {
     return el.nombre === nombreProducto;
 })
+console.log(ENCONTRADO);
 if(ENCONTRADO === undefined){
-productos.push({nombre:nombreProducto.toLowerCase(),precio:precioProducto,stock:stockProducto});
+productos.push({nombre:nombreProducto,precio:precioProducto,stock:stockProducto});
 }
 else{
     alert(`Este producto ya se encuentra cargado`);
