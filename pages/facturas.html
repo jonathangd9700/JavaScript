@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>HOLA! Iniciaste sesion correctamente</h1>
+    </header>
+    <main>
+        <div class="agregarFacturas">
+            <label for="facturaN">Número de factura:
+                <input type="text" class="inputEstilo" name="facturaN" id="facturaN" placeholder="N° Factura">
+            </label>
+            <label for="comprobanteN">Número de comprobante:
+                <input type="text" class="inputEstilo" name="comprobanteN"id="comprobanteN" placeholder="N° comprobante">
+            </label>
+            <label for="cuit">CUIT (sin espacios ni guiones):
+                <input type="text" minlength="11" maxlength="11" class="inputEstilo" name="cuit" id="cuit" placeholder="CUIT" required>
+            </label>
+            <label for="edificio">Dirección edificio:
+                <input type="text" id="edificio" class="inputEstilo" placeholder="Dirección del edificio">
+            </label>
+            <label for="administracion">Nombre administracion:
+                <input type="text" id="administracion" class="inputEstilo" placeholder="Administracion">
+            </label>
+            <label for="precio">Precio de factura:
+                <input type="text" id="precio" class="inputEstilo" placeholder="Precio">
+            </label>
+            <label for="descripcion">Descripcion del trabajo:
+                <textarea name="" id="descripcion" cols="30" rows="10" placeholder="Descripcion del trabajo" col="10" rows="30"></textarea>
+            </label>
+            <label for="fecha">Fecha trabajo realizado:
+                <input type="text" class="inputEstilo" id="fecha" placeholder="Fecha">
+            </label>
+            <button onclick="agregarFactura()">
+                Agregar factura
+            </button>
+            <button onclick="precioFacturas()">
+                Sumar total de factuas.
+            </button>
+            <p id="totalFacturas"></p>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="../desafio2-1.js"></script>
+</body>
+</html>

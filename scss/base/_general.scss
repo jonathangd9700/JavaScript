@@ -1,0 +1,21 @@
+body{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+.inicioSesion{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 150px;
+    padding: 5px;
+    align-items: center;
+    margin: 0 auto;
+}
+.agregarFacturas{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
