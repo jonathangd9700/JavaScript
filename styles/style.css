@@ -28,6 +28,16 @@ body {
   align-items: center;
 }
 
+.card {
+  width: 150px;
+  background-color: black;
+  color: white;
+  margin: 0 auto;
+  align-items: center;
+}
+.card p{
+  text-align: center;
+}
 .inicioSesion button {
   border-width: 0px;
   width: 120px;
