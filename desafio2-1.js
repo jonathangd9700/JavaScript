@@ -53,10 +53,7 @@ function agregarFactura()
 {
     card.innerHTML="";
     const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
-    //Que no se duplique el numero de factura
-                ENCONTRADO = localStorageFacturas.find(el => {
-                return el.facturaN === inputNumeroFactura.value;
-                })
+
 
     //Validaciones para permitir cargar la factura
     if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false && ENCONTRADO === undefined){
@@ -69,7 +66,10 @@ function agregarFactura()
             document.body.append(card);
         }
         else{
-
+                //Que no se duplique el numero de factura
+                ENCONTRADO = localStorageFacturas.find(el => {
+                    return el.facturaN === inputNumeroFactura.value;
+                    })  
             if(ENCONTRADO == undefined){
             localStorageFacturas.push(Factura);
             localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
@@ -101,7 +101,7 @@ function agregarFactura()
         }
 }
 function precioFacturas(){
-    const suma = localStorageFacturas.reduce((acc,el)=> acc + el.precio,0)
+    const suma = JSON.parse(localStorage.getItem(USUADMIN)).reduce((acc,el)=> acc + el.precio,0)
     console.log(suma);
     let totalSumaFacturas = document.getElementById(`totalFacturas`);
 
