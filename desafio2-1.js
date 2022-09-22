@@ -53,14 +53,15 @@ function agregarFactura()
 {
     card.innerHTML="";
     const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
-        //Que no se duplique el numero de factura
 
-    //Validaciones para permitir cargar la factura
-    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false /*&& ENCONTRADO === undefined*/){
         const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
+        //Que no se duplique el numero de factura
         ENCONTRADO = localStorageFacturas.find(el => {
             return el.facturaN === inputNumeroFactura.value;
         })
+    //Validaciones para permitir cargar la factura
+    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false && ENCONTRADO === undefined){
+
         if(localStorageFacturas==null){
             localStorage.setItem(USUADMIN, JSON.stringify([Factura]));
             verFacturas([Factura]);
@@ -68,7 +69,7 @@ function agregarFactura()
             card.innerHTML = `<p>Factura agregada</p>`;
             document.body.append(card);
         }
-        else if(ENCONTRADO==undefined){
+        else{
             localStorageFacturas.push(Factura);
             localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
             verFacturas(localStorageFacturas);
