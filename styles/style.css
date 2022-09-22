@@ -29,14 +29,19 @@ body {
 }
 
 .card {
-  width: 150px;
+  width: auto;
+  height: auto;
   background-color: black;
   color: white;
   margin: 0 auto;
+  margin-top: 5px;
   align-items: center;
+  padding: 5px;
 }
-.card p{
-  text-align: center;
+
+#listaFacturas{
+  background-color: coral;
+  color: white;
 }
 .inicioSesion button {
   border-width: 0px;

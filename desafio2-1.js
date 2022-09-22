@@ -11,7 +11,8 @@ const inputPrecio = document.getElementById(`precio`);
 const inputDescripcion = document.getElementById(`descripcion`);
 const inputFecha = document.getElementById(`fecha`);
 let card = document.createElement(`div`);
-let facturas = [];
+let ENCONTRADO;
+
 
 //Funcion para iniciar sesion y avanzar hacia el simulador
 function iniciarSesion()
@@ -21,6 +22,7 @@ function iniciarSesion()
         card.innerHTML = `<p>Iniciaste sesion correctamente ${USUADMIN}</p>`;
         document.body.append(card);
         window.location.href = `./pages/facturas.html`;
+
     }
     else{
         card.innerHTML="";
@@ -30,9 +32,9 @@ function iniciarSesion()
     }
 }
 //funcion constructora de los objetos facturas
-function Facturacion(id,facturaN,comprobanteN,cuit,edificio,administracion,precio,descripcion,fecha)
+class Facturacion{
+    constructor(facturaN,comprobanteN,cuit,edificio,administracion,precio,descripcion,fecha)
 {
-    this.id = id;
     this.facturaN = facturaN;
     this.comprobanteN = comprobanteN;
     this.cuit = cuit;
@@ -42,6 +44,7 @@ function Facturacion(id,facturaN,comprobanteN,cuit,edificio,administracion,preci
     this.descripcion = descripcion;
     this.fecha = fecha;
 }
+}
 
 
 
@@ -49,21 +52,31 @@ function Facturacion(id,facturaN,comprobanteN,cuit,edificio,administracion,preci
 function agregarFactura()
 {
     card.innerHTML="";
-    const nuevaFactura = new Facturacion(facturas.length,inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
-    console.log(facturas);
+    const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
         //Que no se duplique el numero de factura
-        const ENCONTRADO = facturas.find(el => {
+
+    //Validaciones para permitir cargar la factura
+    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false /*&& ENCONTRADO === undefined*/){
+        const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
+        ENCONTRADO = localStorageFacturas.find(el => {
             return el.facturaN === inputNumeroFactura.value;
         })
-    //Validaciones para permitir cargar la factura
-    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false && ENCONTRADO === undefined){
-        console.log(ENCONTRADO);
-        card.classList.add(`card`);
-        card.innerHTML = `<p>Factura agregada</p>`;
-        document.body.append(card);
-        return facturas.push(nuevaFactura);
+        if(localStorageFacturas==null){
+            localStorage.setItem(USUADMIN, JSON.stringify([Factura]));
+            verFacturas([Factura]);
+            card.classList.add(`card`);
+            card.innerHTML = `<p>Factura agregada</p>`;
+            document.body.append(card);
+        }
+        else if(ENCONTRADO==undefined){
+            localStorageFacturas.push(Factura);
+            localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
+            verFacturas(localStorageFacturas);
+            card.classList.add(`card`);
+            card.innerHTML = `<p>Factura agregada</p>`;
+            document.body.append(card);
+        }
     }
-
         else if(ENCONTRADO!==undefined){
             card.innerHTML="";
             card.classList.add(`card`);
@@ -84,7 +97,7 @@ function agregarFactura()
         }
 }
 function precioFacturas(){
-    const suma = facturas.reduce((acc,el)=> acc + el.precio,0)
+    const suma = JSON.parse(localStorage.getItem(USUADMIN)).reduce((acc,el)=> acc + el.precio,0)
     console.log(suma);
     let totalSumaFacturas = document.getElementById(`totalFacturas`);
 
@@ -92,15 +105,25 @@ function precioFacturas(){
     return (suma);
 }
 
-function eliminarFacturas()
-{
-    let indiceProducto =  facturas.map(elemento => elemento.facturaN).indexOf(inputNumeroFactura.value);
-    console.log(indiceProducto);
-    if(indiceProducto>-1){
-    facturas.splice(indiceProducto,1);
-    card.innerHTML="";
-    card.classList.add(`card`);
-    card.innerHTML = `<p>Factura eliminada con éxito</p>`;
-    document.body.append(card);
-}
+// function eliminarFacturas()
+// {
+//     let indiceProducto =  JSON.parse(localStorage.getItem(USUADMIN)).map(elemento => elemento.facturaN).indexOf(inputNumeroFactura.value);
+//     console.log(indiceProducto);
+//     if(indiceProducto>-1){
+//         JSON.parse(localStorage.getItem(USUADMIN)).splice(indiceProducto,1);
+//     card.innerHTML="";
+//     card.classList.add(`card`);
+//     card.innerHTML = `<p>Factura eliminada con éxito</p>`;
+//     document.body.append(card);
+// }
+// }
+
+function verFacturas(facturas){
+    let listaFacturas= document.getElementById(`listaFacturas`);
+    listaFacturas.innerHTML = "";
+    facturas.forEach(factura => {
+        let li = document.createElement(`li`);
+        li.innerHTML = `<hr> Factura N°: ${factura.facturaN} - N° Comprobante: ${factura.comprobanteN} - CUIT: ${factura.cuit} - Dirección: ${factura.edificio} - Administración: ${factura.administracion} - Precio: $${factura.precio} - Descripción: ${factura.descripcion} - Fecha: ${factura.fecha}`;
+        listaFacturas.appendChild(li);
+    });
 }
