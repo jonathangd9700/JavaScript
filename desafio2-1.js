@@ -12,7 +12,7 @@ const inputDescripcion = document.getElementById(`descripcion`);
 const inputFecha = document.getElementById(`fecha`);
 let card = document.createElement(`div`);
 let ENCONTRADO;
-
+const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
 
 //Funcion para iniciar sesion y avanzar hacia el simulador
 function iniciarSesion()
@@ -53,12 +53,11 @@ function agregarFactura()
 {
     card.innerHTML="";
     const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
+    //Que no se duplique el numero de factura
+                ENCONTRADO = localStorageFacturas.find(el => {
+                return el.facturaN === inputNumeroFactura.value;
+                })
 
-        const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
-        //Que no se duplique el numero de factura
-        ENCONTRADO = localStorageFacturas.find(el => {
-            return el.facturaN === inputNumeroFactura.value;
-        })
     //Validaciones para permitir cargar la factura
     if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false && ENCONTRADO === undefined){
 
@@ -70,6 +69,8 @@ function agregarFactura()
             document.body.append(card);
         }
         else{
+
+            if(ENCONTRADO == undefined){
             localStorageFacturas.push(Factura);
             localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
             verFacturas(localStorageFacturas);
@@ -78,7 +79,9 @@ function agregarFactura()
             document.body.append(card);
         }
     }
-        else if(ENCONTRADO!==undefined){
+    }
+            if(ENCONTRADO!==undefined){
+            console.log("ACA ESTOY");
             card.innerHTML="";
             card.classList.add(`card`);
             card.innerHTML = `<p>La factura n° <strong>${inputNumeroFactura.value}</strong> ya fue cargada</p>`;
@@ -90,7 +93,7 @@ function agregarFactura()
             card.innerHTML = `<p>El cuit debe tener 11 digitos </p>`;
             document.body.append(card);
         }
-        else{
+        else if(isNaN(inputNumeroComprobante.value) !== false){
             card.innerHTML="";
             card.classList.add(`card`);
             card.innerHTML = `<p>Ingrese un valor válido</p>`;
@@ -98,7 +101,7 @@ function agregarFactura()
         }
 }
 function precioFacturas(){
-    const suma = JSON.parse(localStorage.getItem(USUADMIN)).reduce((acc,el)=> acc + el.precio,0)
+    const suma = localStorageFacturas.reduce((acc,el)=> acc + el.precio,0)
     console.log(suma);
     let totalSumaFacturas = document.getElementById(`totalFacturas`);
 

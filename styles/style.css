@@ -29,24 +29,61 @@ body {
 }
 
 .card {
-  width: auto;
+  width: 200px;
   height: auto;
   background-color: black;
   color: white;
   margin: 0 auto;
-  margin-top: 5px;
-  align-items: center;
   padding: 5px;
+  align-items: center;
+  text-align: center;
+  margin-top: 5px;
 }
 
-#listaFacturas{
+#listaFacturas {
   background-color: coral;
   color: white;
+  font-size: medium;
 }
+
+#totalFacturas {
+  border: solid 4px lightblue;
+  width: auto;
+  padding: 5px;
+  font-weight: bolder;
+}
+
+.facturas {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  background-color: gray;
+  color: black;
+  text-align: center;
+}
+
 .inicioSesion button {
   border-width: 0px;
   width: 120px;
   height: 50px;
+}
+
+.buttonGeneral {
+  font-size: large;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  width: 150px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 100px;
+  color: white;
+  background-color: lightblue;
+  transition: transform 250ms ease-in;
+}
+.buttonGeneral:hover {
+  transform: scale(1.1);
 }
 
 .inputEstilo {

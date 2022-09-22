@@ -22,11 +22,27 @@ body{
 
 .card{
     width: 200px;
-    height: 200px;
+    height: auto;
     background-color: black;
     color: white;
     margin: 0 auto;
+    padding: 5px;
     align-items: center;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#listaFacturas{
+    background-color: coral;
+    color: white;
+    font-size: medium;
+}
+
+#totalFacturas{
+    border: solid 4px lightblue;
+    width: auto;
+    padding: 5px;
+    font-weight: bolder;
 }
 
 .facturas{
