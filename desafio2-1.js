@@ -10,9 +10,12 @@ const inputAdministracion = document.getElementById(`administracion`);
 const inputPrecio = document.getElementById(`precio`);
 const inputDescripcion = document.getElementById(`descripcion`);
 const inputFecha = document.getElementById(`fecha`);
+const btnAgregar = document.getElementById(`btnAgregar`);
+const btnEliminar = document.getElementById(`btnEliminar`);
 let card = document.createElement(`div`);
+let listaFacturas= document.getElementById(`listaFacturas`);
+let totalFacturas = document.getElementById(`totalFacturas`);
 let ENCONTRADO;
-const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
 
 //Funcion para iniciar sesion y avanzar hacia el simulador
 function iniciarSesion()
@@ -45,42 +48,56 @@ class Facturacion{
     this.fecha = fecha;
 }
 }
-
-
-
+function validacionStorage(){
+    const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
+    // if(localStorageFacturas == null){
+    //     listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`
+    // }
+    // else{
+    // verFacturas(localStorageFacturas);
+    // precioFacturas();
+    // }
+    localStorageFacturas==null ? listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>` : (verFacturas(localStorageFacturas), precioFacturas());
+}
+validacionStorage();
     //Funcion para cargar la factura
 function agregarFactura()
 {
     card.innerHTML="";
     const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
-
-
+    console.log("llama la funcion al menos");
+    const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
     //Validaciones para permitir cargar la factura
-    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false && ENCONTRADO === undefined){
-
+    if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false){
+        console.log("entra al primero if al menos");
         if(localStorageFacturas==null){
             localStorage.setItem(USUADMIN, JSON.stringify([Factura]));
             verFacturas([Factura]);
+
             card.classList.add(`card`);
             card.innerHTML = `<p>Factura agregada</p>`;
             document.body.append(card);
+            console.log("primer if anidado")
+            precioFacturas();
         }
+    
         else{
                 //Que no se duplique el numero de factura
-                ENCONTRADO = localStorageFacturas.find(el => {
+                ENCONTRADO = JSON.parse(localStorage.getItem(USUADMIN)).find(el => {
                     return el.facturaN === inputNumeroFactura.value;
-                    })  
+                                    })  
             if(ENCONTRADO == undefined){
+            console.log("funciona");
+            card.innerHTML="";
             localStorageFacturas.push(Factura);
             localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
             verFacturas(localStorageFacturas);
             card.classList.add(`card`);
             card.innerHTML = `<p>Factura agregada</p>`;
             document.body.append(card);
+            precioFacturas();
         }
-    }
-    }
-            if(ENCONTRADO!==undefined){
+        else if (ENCONTRADO!==undefined){
             console.log("ACA ESTOY");
             card.innerHTML="";
             card.classList.add(`card`);
@@ -99,7 +116,19 @@ function agregarFactura()
             card.innerHTML = `<p>Ingrese un valor válido</p>`;
             document.body.append(card);
         }
+    }
+    }
+    else{
+                    card.innerHTML="";
+            card.classList.add(`card`);
+            card.innerHTML = `<p>Ingrese un valor válido</p>`;
+            document.body.append(card);
+    }
+
 }
+
+btnAgregar.addEventListener(`click`,agregarFactura);
+
 function precioFacturas(){
     const suma = JSON.parse(localStorage.getItem(USUADMIN)).reduce((acc,el)=> acc + el.precio,0)
     console.log(suma);
@@ -122,8 +151,21 @@ function precioFacturas(){
 // }
 // }
 
+function eliminarFacturas(){
+    localStorage.clear();
+    listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`;
+    card.classList.add(`card`);
+    card.innerHTML = `<p>Eliminaste todas las facturas</p>`;
+    document.body.append(card);
+    totalFacturas.innerHTML = `<p>$0</p>`;
+}
+
+btnEliminar.addEventListener(`click`,()=>{
+    eliminarFacturas();
+})
+
+
 function verFacturas(facturas){
-    let listaFacturas= document.getElementById(`listaFacturas`);
     listaFacturas.innerHTML = "";
     facturas.forEach(factura => {
         let li = document.createElement(`li`);

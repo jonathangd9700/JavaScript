@@ -13,39 +13,28 @@
     </header>
     <main>
         <div class="agregarFacturas">
-            <label for="facturaN">Número de factura:
+            <label for="facturaN">Número de factura:</label>
                 <input type="text" class="inputEstilo" name="facturaN" id="facturaN" placeholder="N° Factura" required>
-            </label>
-            <label for="comprobanteN">Número de comprobante:
+            <label for="comprobanteN">Número de comprobante:</label>
                 <input type="text" class="inputEstilo" name="comprobanteN"id="comprobanteN" placeholder="N° comprobante" required>
-            </label>
-            <label for="cuit">CUIT (sin espacios ni guiones):
+            <label for="cuit">CUIT (sin espacios ni guiones):</label>
                 <input type="text" minlength="11" maxlength="11" class="inputEstilo" name="cuit" id="cuit" placeholder="CUIT" required>
-            </label>
-            <label for="edificio">Dirección edificio:
+            <label for="edificio">Dirección edificio:</label>
                 <input type="text" id="edificio" class="inputEstilo" placeholder="Dirección del edificio" required>
-            </label>
-            <label for="administracion">Nombre administracion:
+            <label for="administracion">Nombre administracion:</label>
                 <input type="text" id="administracion" class="inputEstilo" placeholder="Administracion" required>
-            </label>
-            <label for="precio">Precio de factura:
+            <label for="precio">Precio de factura:</label>
                 <input type="text" id="precio" class="inputEstilo" placeholder="Precio" required>
-            </label>
-            <label for="descripcion">Descripcion del trabajo:
+            <label for="descripcion">Descripcion del trabajo:</label>
                 <textarea name="" id="descripcion" cols="30" rows="10" placeholder="Descripcion del trabajo" col="10" rows="30"></textarea>
-            </label>
-            <label for="fecha">Fecha trabajo realizado:
+            <label for="fecha">Fecha trabajo realizado:</label>
                 <input type="text" class="inputEstilo" id="fecha" placeholder="Fecha" required>
-            </label>
-            <button class="buttonGeneral"onclick="agregarFactura()">
+            <button class="buttonGeneral" id="btnAgregar">
                 Agregar factura
             </button>
-            <button class="buttonGeneral" onclick="precioFacturas()">
-                Sumar total de facturas
+            <button class="buttonGeneral" id="btnEliminar">
+                Eliminar Todas Facturas
             </button>
-            <!-- <button class="buttonGeneral" onclick="verFacturas()">
-                Ver Facturas
-            </button> -->
             <p id="totalFacturas"> $0</p>
         </div>
         <ul id="listaFacturas"></ul>
