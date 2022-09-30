@@ -21,17 +21,28 @@ let ENCONTRADO;
 function iniciarSesion()
 {
     if(inputUsuario.value === USUADMIN && inputContrasena.value === PWADMIN){
-        card.classList.add(`card`);
-        card.innerHTML = `<p>Iniciaste sesion correctamente ${USUADMIN}</p>`;
-        document.body.append(card);
-        window.location.href = `./pages/facturas.html`;
+        // card.classList.add(`card`);
+        // card.innerHTML = `<p>Iniciaste sesion correctamente ${USUADMIN}</p>`;
+        // document.body.append(card);
+        Swal.fire({
+            title: `Iniciaste sesion ${USUADMIN}`,
+            icon: 'success',
+            focusConfirm: true,
+            confirmButtonText: `<a href="./pages/facturas.html"><i class="fa fa-thumbs-up"></i><strong>CLICKEAME</strong></a>`
+        })
+
 
     }
     else{
-        card.innerHTML="";
-        card.classList.add(`card`);
-        card.innerHTML = `<p>Usuario o contraseña incorrectos</p>`;
-        document.body.append(card);
+        // card.innerHTML="";
+        // card.classList.add(`card`);
+        // card.innerHTML = `<p>Usuario o contraseña incorrectos</p>`;
+        // document.body.append(card);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Usuario o contraseña incorrectos'
+          })
     }
 }
 //funcion constructora de los objetos facturas
@@ -48,7 +59,7 @@ class Facturacion{
     this.fecha = fecha;
 }
 }
-function validacionStorage(){
+
     const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
     // if(localStorageFacturas == null){
     //     listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`
@@ -58,9 +69,8 @@ function validacionStorage(){
     // precioFacturas();
     // }
     localStorageFacturas==null ? listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>` : (verFacturas(localStorageFacturas), precioFacturas());
-}
-validacionStorage();
-    //Funcion para cargar la factura
+
+    //Funcion para AGREGAR la factura
 function agregarFactura()
 {
     card.innerHTML="";
