@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
@@ -13,28 +14,37 @@
     </header>
     <main>
         <div class="agregarFacturas">
-            <label for="facturaN">Número de factura:</label>
+            <label for="facturaN">Número de factura:
                 <input type="text" class="inputEstilo" name="facturaN" id="facturaN" placeholder="N° Factura" required>
-            <label for="comprobanteN">Número de comprobante:</label>
+            </label>
+            <label for="comprobanteN">Número de comprobante:
                 <input type="text" class="inputEstilo" name="comprobanteN"id="comprobanteN" placeholder="N° comprobante" required>
-            <label for="cuit">CUIT (sin espacios ni guiones):</label>
+                </label>
+            <label for="cuit">CUIT (sin espacios ni guiones):
                 <input type="text" minlength="11" maxlength="11" class="inputEstilo" name="cuit" id="cuit" placeholder="CUIT" required>
-            <label for="edificio">Dirección edificio:</label>
+                </label>
+            <label for="edificio">Dirección edificio:
                 <input type="text" id="edificio" class="inputEstilo" placeholder="Dirección del edificio" required>
-            <label for="administracion">Nombre administracion:</label>
+                </label>
+            <label for="administracion">Nombre administracion:
                 <input type="text" id="administracion" class="inputEstilo" placeholder="Administracion" required>
-            <label for="precio">Precio de factura:</label>
-                <input type="text" id="precio" class="inputEstilo" placeholder="Precio" required>
-            <label for="descripcion">Descripcion del trabajo:</label>
+                </label>
+            <label for="precio">Precio de factura:
+                <input type="text" id="precio" class="inputEstilo" placeholder="Precio" maxlength="7" required>
+                </label>
+            <label for="descripcion">Descripcion del trabajo:
                 <textarea name="" id="descripcion" cols="30" rows="10" placeholder="Descripcion del trabajo" col="10" rows="30"></textarea>
-            <label for="fecha">Fecha trabajo realizado:</label>
+                </label>
+            <label for="fecha">Fecha trabajo realizado:
                 <input type="text" class="inputEstilo" id="fecha" placeholder="Fecha" required>
+                </label>
             <button class="buttonGeneral" id="btnAgregar">
                 Agregar factura
             </button>
             <button class="buttonGeneral" id="btnEliminar">
                 Eliminar Todas Facturas
             </button>
+            <button onclick="verConsorcios()"></button>
             <p id="totalFacturas"> $0</p>
         </div>
         <ul id="listaFacturas"></ul>
@@ -43,6 +53,7 @@
 
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="../desafio2-1.js"></script>
 </body>
 </html>

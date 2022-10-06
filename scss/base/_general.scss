@@ -13,11 +13,11 @@ body{
     align-items: center;
     margin: 0 auto;
 }
+
 .agregarFacturas{
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     width: 100%;
-    align-items: center;
 }
 
 .card{

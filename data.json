@@ -1,0 +1,33 @@
+[
+    {
+       "id":0,
+       "direccion":"Manuel Ugarte 1855",
+       "CUIT":"30714178713",
+       "administracion":"RM"
+    },
+    {
+       "id":1,
+       "direccion":"Sucre 956",
+       "CUIT":"30710787146",
+       "administracion":"RM"
+    },
+    {
+       "id":2,
+       "direccion":"Av. San Juan 3967",
+       "CUIT":"30696098170",
+       "administracion":"Bardone"
+    },
+    {
+       "id":3,
+       "direccion":"Av. Cordoba 2744",
+       "CUIT":"30686872854",
+       "administracion":"Bardone"
+    },
+    {
+       "id":4,
+       "direccion":"Calasanz 170",
+       "CUIT":"30516159967",
+       "administracion":"Bardone"
+    }
+ ]
+ 

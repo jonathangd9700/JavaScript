@@ -23,9 +23,8 @@ body {
 
 .agregarFacturas {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   width: 100%;
-  align-items: center;
 }
 
 .card {
@@ -89,7 +88,8 @@ body {
 .inputEstilo {
   border-width: 0px 0px 1px 0px;
   margin: 1rem;
-  height: 30px;
+  height: 50px;
+  width: 250px;
 }
 
 /*# sourceMappingURL=style.css.map */
