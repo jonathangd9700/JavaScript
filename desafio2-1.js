@@ -14,6 +14,7 @@ const btnAgregar = document.getElementById(`btnAgregar`);
 const btnEliminar = document.getElementById(`btnEliminar`);
 let card = document.createElement(`div`);
 let listaFacturas= document.getElementById(`listaFacturas`);
+let listaConsorcios = document.getElementById(`listaConsorcios`);
 let totalFacturas = document.getElementById(`totalFacturas`);
 let ENCONTRADO;
 
@@ -21,9 +22,6 @@ let ENCONTRADO;
 function iniciarSesion()
 {
     if(inputUsuario.value === USUADMIN && inputContrasena.value === PWADMIN){
-        // card.classList.add(`card`);
-        // card.innerHTML = `<p>Iniciaste sesion correctamente ${USUADMIN}</p>`;
-        // document.body.append(card);
         Swal.fire({
             title: `Iniciaste sesion ${USUADMIN}`,
             icon: 'success',
@@ -37,10 +35,6 @@ function iniciarSesion()
         }, 2000)
     }
     else{
-        // card.innerHTML="";
-        // card.classList.add(`card`);
-        // card.innerHTML = `<p>Usuario o contraseña incorrectos</p>`;
-        // document.body.append(card);
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -64,13 +58,6 @@ class Facturacion{
 }
 
     const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
-    // if(localStorageFacturas == null){
-    //     listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`
-    // }
-    // else{
-    // verFacturas(localStorageFacturas);
-    // precioFacturas();
-    // }
     localStorageFacturas==null ? listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>` : (verFacturas(localStorageFacturas), precioFacturas());
 
     //Funcion para AGREGAR la factura
@@ -78,19 +65,13 @@ function agregarFactura()
 {
     card.innerHTML="";
     const Factura = new Facturacion(inputNumeroFactura.value,inputNumeroComprobante.value,inputCuit.value,inputEdificio.value,inputAdministracion.value,inputPrecio.value,inputDescripcion.value,inputFecha.value);
-    console.log("llama la funcion al menos");
     const localStorageFacturas = JSON.parse(localStorage.getItem(USUADMIN));
     //Validaciones para permitir cargar la factura
     if(isNaN(inputNumeroFactura.value)===false && isNaN(inputNumeroComprobante.value) === false && isNaN(inputCuit.value) === false && inputCuit.value.length === 11 && isNaN(inputPrecio.value)===false){
-        console.log("entra al primero if al menos");
         if(localStorageFacturas==null){
             localStorage.setItem(USUADMIN, JSON.stringify([Factura]));
             verFacturas([Factura]);
 
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>Factura agregada</p>`;
-            // document.body.append(card);
-            // console.log("primer if anidado")
             
             Swal.fire({
                 title: `Factura agregada`,
@@ -116,9 +97,6 @@ function agregarFactura()
             localStorageFacturas.push(Factura);
             localStorage.setItem(USUADMIN, JSON.stringify(localStorageFacturas));
             verFacturas(localStorageFacturas);
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>Factura agregada</p>`;
-            // document.body.append(card);
             Swal.fire({
                 title: `Factura agregada`,
                 icon: 'success',
@@ -131,11 +109,6 @@ function agregarFactura()
             precioFacturas();
         }
         else if (ENCONTRADO!==undefined){
-            console.log("ACA ESTOY");
-            // card.innerHTML="";
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>La factura n° <strong>${inputNumeroFactura.value}</strong> ya fue cargada</p>`;
-            // document.body.append(card);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -143,10 +116,6 @@ function agregarFactura()
               })
         }
         else if(inputCuit.value.length <11){
-            // card.innerHTML="";
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>El cuit debe tener 11 digitos </p>`;
-            // document.body.append(card);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -154,10 +123,6 @@ function agregarFactura()
               }) 
         }
         else if(isNaN(inputNumeroComprobante.value) !== false){
-            // card.innerHTML="";
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>Ingrese un valor válido</p>`;
-            // document.body.append(card);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -167,10 +132,6 @@ function agregarFactura()
     }
     }
     else{
-            //         card.innerHTML="";
-            // card.classList.add(`card`);
-            // card.innerHTML = `<p>Ingrese un valor válido</p>`;
-            // document.body.append(card);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -225,12 +186,6 @@ function eliminarFacturas(){
           totalFacturas.innerHTML = `<p>$0</p>`;
         }
       })
-    // localStorage.clear();
-    // listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`;
-    // card.classList.add(`card`);
-    // card.innerHTML = `<p>Eliminaste todas las facturas</p>`;
-    // document.body.append(card);
-    // totalFacturas.innerHTML = `<p>$0</p>`;
 }
 
 btnEliminar.addEventListener(`click`,()=>{
@@ -248,7 +203,12 @@ function verFacturas(facturas){
 }
 
 function verConsorcios(){
-fetch('data.json')
+    listaConsorcios.innerHTML = "";
+fetch('../data.json')
 .then(info=>info.json())
-.then(data=>console.log(data));
+.then(data=>data.forEach(consorcio =>{
+    let li = document.createElement(`li`);
+    li.innerHTML = `<tr><td>Dirección: ${consorcio.direccion}</td> - <td>CUIT: ${consorcio.CUIT}</td> - <td>Administración: ${consorcio.administracion}</td></tr>`;
+    listaConsorcios.appendChild(li);
+}));
 }
