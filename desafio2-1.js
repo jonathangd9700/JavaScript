@@ -16,6 +16,8 @@ let card = document.createElement(`div`);
 let listaFacturas= document.getElementById(`listaFacturas`);
 let listaConsorcios = document.getElementById(`listaConsorcios`);
 let totalFacturas = document.getElementById(`totalFacturas`);
+let buscarFactura = document.getElementById(`buscadorNFactura`);
+let btnBuscar = document.getElementById(`btnBuscar`);
 let ENCONTRADO;
 
 //Funcion para iniciar sesion y avanzar hacia el simulador
@@ -180,7 +182,7 @@ function eliminarFacturas(){
           Swal.fire(
             'Facturas eliminadas!',
             'Las facturas han sido eliminadas',
-            'Exito!'
+            'success'
           )
           listaFacturas.innerHTML=`<h1>No hay facturas cargadas</h1>`;
           totalFacturas.innerHTML = `<p>$0</p>`;
@@ -212,3 +214,15 @@ fetch('../data.json')
     listaConsorcios.appendChild(li);
 }));
 }
+
+const buscadorFactura = ()=>{
+    const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+    const resultado = facturas.filter(el => el.facturaN == buscarFactura.value)
+    console.log(buscarFactura.value);
+    console.log(facturas);
+    console.log(resultado);
+}
+
+btnBuscar.addEventListener(`click`,()=>{
+    buscadorFactura();
+})
