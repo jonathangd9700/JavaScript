@@ -10,7 +10,16 @@
 </head>
 <body>
     <header>
-        <h1>HOLA! Iniciaste sesion correctamente</h1>
+        <h1>HOLA! Iniciaste sesion correctamente</h1>        
+        <form action="get">
+            <select name="filtros" id="opcionesFiltrar">
+                <option value="noOption">Elige una opcion para buscar</option>
+                <option value="CUIT">CUIT</option>
+                <option value="facturaN">N° Factura</option>
+                <option value="administracion">Administracion</option>
+                <option value="precio">Precio</option>
+            </select>
+        </form>
         <input type="search" id="buscadorNFactura" placeholder="Buscar por n° de factura">
         <button id="btnBuscar">Buscar</button>
     </header>

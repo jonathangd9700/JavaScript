@@ -12,6 +12,8 @@ const inputDescripcion = document.getElementById(`descripcion`);
 const inputFecha = document.getElementById(`fecha`);
 const btnAgregar = document.getElementById(`btnAgregar`);
 const btnEliminar = document.getElementById(`btnEliminar`);
+let opcionesFiltrar = document.getElementById(`opcionesFiltrar`);
+// let opcionesFiltrarValue = opcionesFiltrar.value;
 let card = document.createElement(`div`);
 let listaFacturas= document.getElementById(`listaFacturas`);
 let listaConsorcios = document.getElementById(`listaConsorcios`);
@@ -215,14 +217,51 @@ fetch('../data.json')
 }));
 }
 
-const buscadorFactura = ()=>{
+let opcionesFiltrarValue;
+opcionesFiltrar.addEventListener(`change`,()=>{
+    opcionesFiltrarValue = opcionesFiltrar.value;
+    console.log(opcionesFiltrarValue);
+})
+
+const buscadorFactura = (opcionElegida)=>{
     const facturas = JSON.parse(localStorage.getItem(USUADMIN));
-    const resultado = facturas.filter(el => el.facturaN == buscarFactura.value)
+    opcionElegida = opcionesFiltrarValue;
+    const resultado = facturas.filter(el => el.opcionElegida == buscarFactura.value);
     console.log(buscarFactura.value);
     console.log(facturas);
+    if(resultado.length== 0){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: `Lo sentimos esa factura no se encuentra`
+          })
+    }
     console.log(resultado);
+    console.log(opcionElegida);
 }
 
+
 btnBuscar.addEventListener(`click`,()=>{
-    buscadorFactura();
+    
+    switch (opcionesFiltrarValue) {
+        case `facturaN`:
+            buscadorFactura(opcionesFiltrarValue);
+            console.log(`funciono`)
+            break;
+        
+        case `CUIT`:
+            buscadorFactura(opcionesFiltrar);
+        
+        default:
+            console.log(opcionesFiltrarValue);
+            console.log(`no funciona`);
+            break;
+    }
 })
+
+/*
+Necesito hacer para la busqueda un option select y tomar el que selecciona por ejemplo si tengo CUIT - N° FACTURA - PRECIO - ADMINISTRACION - NO SE HACER LA FECHA
+Deberia usar en switch con cada case = CUIT ... case = PRECIO... ETC, entonces tengo que ver donde agregar ese boton pero primero sera a prueba con console log, la filtro ya lo tengo me falta saber tomar el dato elegido del select
+
+VER COMO AGREGAR CALENDARIO SI LLEGO
+*/ 
