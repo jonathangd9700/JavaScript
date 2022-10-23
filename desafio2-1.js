@@ -13,7 +13,6 @@ const inputFecha = document.getElementById(`fecha`);
 const btnAgregar = document.getElementById(`btnAgregar`);
 const btnEliminar = document.getElementById(`btnEliminar`);
 let opcionesFiltrar = document.getElementById(`opcionesFiltrar`);
-// let opcionesFiltrarValue = opcionesFiltrar.value;
 let card = document.createElement(`div`);
 let listaFacturas= document.getElementById(`listaFacturas`);
 let listaConsorcios = document.getElementById(`listaConsorcios`);
@@ -223,10 +222,10 @@ opcionesFiltrar.addEventListener(`change`,()=>{
     console.log(opcionesFiltrarValue);
 })
 
-const buscadorFactura = (opcionElegida)=>{
+const buscadorFactura = ()=>{
     const facturas = JSON.parse(localStorage.getItem(USUADMIN));
-    opcionElegida = opcionesFiltrarValue;
-    const resultado = facturas.filter(el => el.opcionElegida == buscarFactura.value);
+    // opcionElegida = opcionesFiltrarValue;
+    const resultado = facturas.filter(el => el.facturaN == buscarFactura.value);
     console.log(buscarFactura.value);
     console.log(facturas);
     if(resultado.length== 0){
@@ -236,8 +235,15 @@ const buscadorFactura = (opcionElegida)=>{
             text: `Lo sentimos esa factura no se encuentra`
           })
     }
+    else{
+        Swal.fire({
+            icon:'success',
+            title: 'Exito',
+            text:'Factura encontrada',
+            timer:1000
+        })
+    }
     console.log(resultado);
-    console.log(opcionElegida);
 }
 
 
