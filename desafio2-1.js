@@ -12,6 +12,7 @@ const inputDescripcion = document.getElementById(`descripcion`);
 const inputFecha = document.getElementById(`fecha`);
 const btnAgregar = document.getElementById(`btnAgregar`);
 const btnEliminar = document.getElementById(`btnEliminar`);
+const btnVer = document.getElementById(`btnVer`);
 let opcionesFiltrar = document.getElementById(`opcionesFiltrar`);
 let card = document.createElement(`div`);
 let listaFacturas= document.getElementById(`listaFacturas`);
@@ -211,7 +212,8 @@ fetch('../data.json')
 .then(info=>info.json())
 .then(data=>data.forEach(consorcio =>{
     let li = document.createElement(`li`);
-    li.innerHTML = `<tr><td>Dirección: ${consorcio.direccion}</td> - <td>CUIT: ${consorcio.CUIT}</td> - <td>Administración: ${consorcio.administracion}</td></tr>`;
+    li.innerHTML = `
+    Dirección: ${consorcio.direccion} - CUIT: ${consorcio.CUIT} - Administración: ${consorcio.administracion}`;
     listaConsorcios.appendChild(li);
 }));
 }
@@ -222,52 +224,182 @@ opcionesFiltrar.addEventListener(`change`,()=>{
     console.log(opcionesFiltrarValue);
 })
 
-const buscadorFactura = ()=>{
-    const facturas = JSON.parse(localStorage.getItem(USUADMIN));
-    // opcionElegida = opcionesFiltrarValue;
-    const resultado = facturas.filter(el => el.facturaN == buscarFactura.value);
-    console.log(buscarFactura.value);
-    console.log(facturas);
-    if(resultado.length== 0){
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: `Lo sentimos esa factura no se encuentra`
-          })
-    }
-    else{
-        Swal.fire({
-            icon:'success',
-            title: 'Exito',
-            text:'Factura encontrada',
-            timer:1000
-        })
-    }
-    console.log(resultado);
-}
+// const buscadorFactura = ()=>{
+//     const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+//     // opcionElegida = opcionesFiltrarValue;
+//     const resultado = facturas.filter(el => el.facturaN == buscarFactura.value);
+//     console.log(buscarFactura.value);
+//     console.log(facturas);
+//     if(resultado.length== 0){
+//         Swal.fire({
+//             icon: 'error',
+//             title: 'Oops...',
+//             text: `Lo sentimos esa factura no se encuentra`
+//           })
+//     }
+//     else{
+//         Swal.fire({
+//             icon:'success',
+//             title: 'Exito',
+//             text:'Factura encontrada',
+//             timer:1000
+//         })
+//     }
+//     console.log(resultado);
+// }
 
 
 btnBuscar.addEventListener(`click`,()=>{
     
     switch (opcionesFiltrarValue) {
         case `facturaN`:
-            buscadorFactura(opcionesFiltrarValue);
-            console.log(`funciono`)
+            const buscadorFacturaN = ()=>{
+                const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+                // opcionElegida = opcionesFiltrarValue;
+                const resultado = facturas.filter(el => el.facturaN == buscarFactura.value);
+                // console.log(buscarFactura.value);
+                // console.log(facturas);
+                if(resultado.length== 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Lo sentimos esa factura no se encuentra`
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Exito',
+                        text:'Factura encontrada',
+                        timer:1000
+                    })
+                }
+                console.log(resultado);
+                verFacturas(resultado);
+            }
+            buscadorFacturaN();
+            console.log(`funciono`);
             break;
         
         case `CUIT`:
-            buscadorFactura(opcionesFiltrar);
-        
+        const   buscadorFacturaCuit = ()=>{
+                const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+                // opcionElegida = opcionesFiltrarValue;
+                const resultado = facturas.filter(el => el.cuit == buscarFactura.value);
+                console.log(buscarFactura.value);
+                console.log(facturas);
+                if(resultado.length== 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Lo sentimos esa factura no se encuentra`
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Exito',
+                        text:'Factura encontrada',
+                        timer:1000
+                    })
+                }
+                console.log(resultado);
+                verFacturas(resultado);
+            }
+            buscadorFacturaCuit();
+            console.log(`funciono2`);
+            break;
+
+        case `administracion`:
+            const   buscadorFacturaAdm = ()=>{
+                const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+                // opcionElegida = opcionesFiltrarValue;
+                const resultado = facturas.filter(el => el.administracion == buscarFactura.value);
+                console.log(buscarFactura.value);
+                console.log(facturas);
+                if(resultado.length== 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Lo sentimos esa factura no se encuentra`
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Exito',
+                        text:'Factura encontrada',
+                        timer:1000
+                    })
+                }
+                verFacturas(resultado);
+                console.log(resultado);
+            }
+            buscadorFacturaAdm();
+            console.log(`funciono3`);
+            break;            
+        case `precio`:
+            const   buscadorFacturaPrecio = ()=>{
+                const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+                // opcionElegida = opcionesFiltrarValue;
+                const resultado = facturas.filter(el => el.precio == buscarFactura.value);
+                console.log(buscarFactura.value);
+                console.log(facturas);
+                if(resultado.length== 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Lo sentimos esa factura no se encuentra`
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Exito',
+                        text:'Factura encontrada',
+                        timer:1000
+                    })
+                }
+                verFacturas(resultado);
+                console.log(resultado);
+            }
+            buscadorFacturaPrecio();
+            console.log(`funciono2`);
+            break;
+        case `comprobanteN`:
+            const   buscadorFacturaComprobanteN = ()=>{
+                const facturas = JSON.parse(localStorage.getItem(USUADMIN));
+                // opcionElegida = opcionesFiltrarValue;
+                const resultado = facturas.filter(el => el.comprobanteN == buscarFactura.value);
+                console.log(buscarFactura.value);
+                console.log(facturas);
+                if(resultado.length== 0){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Lo sentimos esa factura no se encuentra`
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon:'success',
+                        title: 'Exito',
+                        text:'Factura encontrada',
+                        timer:1000
+                    })
+                }
+                verFacturas(resultado);
+                console.log(resultado);
+            }
+            buscadorFacturaComprobanteN();
+            console.log(`funciono2`);
+            break;
         default:
-            console.log(opcionesFiltrarValue);
-            console.log(`no funciona`);
+            Swal.fire({
+                icon: 'error',
+                title: 'ERROR',
+                text: `Seleccione una opción válida`
+              })
             break;
     }
 })
-
-/*
-Necesito hacer para la busqueda un option select y tomar el que selecciona por ejemplo si tengo CUIT - N° FACTURA - PRECIO - ADMINISTRACION - NO SE HACER LA FECHA
-Deberia usar en switch con cada case = CUIT ... case = PRECIO... ETC, entonces tengo que ver donde agregar ese boton pero primero sera a prueba con console log, la filtro ya lo tengo me falta saber tomar el dato elegido del select
-
-VER COMO AGREGAR CALENDARIO SI LLEGO
-*/ 
